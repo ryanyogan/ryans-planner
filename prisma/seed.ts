@@ -1,3 +1,4 @@
+import { hashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { TASK_STATUS } from "@prisma/client";
 
@@ -37,7 +38,7 @@ async function main() {
         data: new Array(10).fill(1).map((_, i) => {
           return {
             name: `Task ${i}`,
-            ownerId: user.id,
+            userId: user.id,
             projectId: project.id,
             description: `Everything that describes Task ${i}`,
             status: getRandomTaskStatus(),
