@@ -1,6 +1,12 @@
 import clsx from "clsx";
 
-export function TextInput({ className, ...props }: { className: string }) {
+export function TextInput({
+  className,
+  ...props
+}: {
+  className: string;
+  props: any;
+}) {
   return (
     <input
       className={clsx(
