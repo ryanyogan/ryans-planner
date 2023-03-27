@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 export async function fetcher({
   url,
   method,
@@ -30,7 +32,7 @@ export async function fetcher({
 
 //TODO: Extract
 //TODO: Define User Type
-export async function register(user: any) {
+export async function registerUser(user: User) {
   return fetcher({
     url: "/api/register",
     method: "POST",
@@ -39,9 +41,9 @@ export async function register(user: any) {
   });
 }
 
-export async function signin(user: { email: string; password: string }) {
+export async function signinUser(user: Partial<User>) {
   return fetcher({
-    url: "/api/register",
+    url: "/api/signin",
     method: "POST",
     body: user,
     json: false,

@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser, signinUser } from "@/lib/api";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -34,9 +35,9 @@ export function AuthForm({ mode }: { mode: "REGISTER" | "SIGN_IN" }) {
   async function onSubmit(data: any) {
     try {
       if (mode === "REGISTER") {
-        await register(data);
+        await registerUser(data);
       } else {
-        await signin(data);
+        await signinUser(data);
       }
 
       router.replace("/");
