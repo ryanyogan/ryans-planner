@@ -3,14 +3,11 @@ import { HeroSkeleton } from "@/components/hero-skeleton";
 import { ProjectCard } from "@/components/project-card";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { delay } from "@/lib/delay";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
 async function getData() {
-  await delay(2000);
-
   const user = await getUserFromCookie(cookies());
   const projects = await db.project.findMany({
     where: {
@@ -21,11 +18,11 @@ async function getData() {
     },
   });
 
-  return { projects };
+  return { projects, user };
 }
 
 export default async function DashboardHome() {
-  const { projects } = await getData();
+  const { projects, user } = await getData();
 
   return (
     <div className="h-full overflow-y-auto pr-4 w-full">
@@ -33,7 +30,7 @@ export default async function DashboardHome() {
         <div className="flex-1 grow flex">
           <Suspense fallback={<HeroSkeleton />}>
             {/** @ts-ignore */}
-            <Hero />
+            <Hero user={user} />
           </Suspense>
         </div>
         <div className="flex flex-2 grow items-center flex-wrap mt-3 -m-3">

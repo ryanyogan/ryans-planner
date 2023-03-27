@@ -1,17 +1,18 @@
 import { getUserFromCookie } from "@/lib/auth";
-import { delay } from "@/lib/delay";
+import { User } from "@prisma/client";
 import { cookies } from "next/headers";
 import { Button } from "./button";
 import { Card } from "./card";
 
 async function getData() {
-  await delay(2000);
   const user = await getUserFromCookie(cookies());
   return user;
 }
 
-export async function Hero() {
-  const user = await getData();
+export async function Hero({ user }: { user: User | null }) {
+  if (!user) {
+    user = await getData();
+  }
 
   return (
     <Card className="w-full mt-6 py-4 relative">
