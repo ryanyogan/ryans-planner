@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero";
 import { HeroSkeleton } from "@/components/hero-skeleton";
 import { ProjectCard } from "@/components/project-card";
+import { TaskCard } from "@/components/task-card";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
@@ -43,7 +44,10 @@ export default async function DashboardHome() {
           ))}
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
-          <div className="w-full">tasks</div>
+          <div className="w-full">
+            {/** @ts-ignore */}
+            <TaskCard />
+          </div>
         </div>
       </div>
     </div>
