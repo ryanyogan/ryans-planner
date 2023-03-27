@@ -31,6 +31,12 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  name        String
+  description String?
+  due         DateTime?
+  tasks       Task[]
+  deleted     Boolean   @default(false)
+
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
@@ -59,5 +65,9 @@ model Task {
   due     DateTime?
   deleted Boolean   @default(false)
 
-  @@index([userId])
+  projectId String
+  project   Project? @relation(fields: [projectId], references: [id])
+
+  @@index([userId, id])
+  @@index([projectId, id])
 }
